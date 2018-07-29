@@ -6,13 +6,13 @@ terraform {
   required_version = "0.11.7"
 
   backend "s3" {
-    skip_requesting_account_id = true
+    skip_requesting_account_id  = true
     skip_credentials_validation = true
-    skip_get_ec2_platforms = true
-    skip_metadata_api_check = true
-    endpoint = "https://nyc3.digitaloceanspaces.com"
-    region = "us-east-1"
-    bucket = "do-orchestration-state"
+    skip_get_ec2_platforms      = true
+    skip_metadata_api_check     = true
+    endpoint                    = "https://nyc3.digitaloceanspaces.com"
+    region                      = "us-east-1"
+    bucket                      = "do-orchestration-state"
   }
 }
 
@@ -24,8 +24,8 @@ resource "digitalocean_ssh_key" "ssh_key_bootstrap" {
 module "bastion" {
   source = "../../../modules/digital_ocean/bastion"
 
-  env     = "${local.env}"
-  region  = "${local.region}"
+  env    = "${local.env}"
+  region = "${local.region}"
 
   bastion_ssh_key                  = "${digitalocean_ssh_key.ssh_key_bootstrap.id}"
   bastion_droplet_size             = "${local.bastion_droplet_size}"
@@ -37,8 +37,8 @@ module "bastion" {
 module "loadbalance" {
   source = "../../../modules/digital_ocean/loadbalance"
 
-  env     = "${local.env}"
-  region  = "${local.region}"
+  env    = "${local.env}"
+  region = "${local.region}"
 
   loadbalance_ssh_key          = "${digitalocean_ssh_key.ssh_key_bootstrap.id}"
   loadbalance_droplet_size     = "${local.loadbalance_droplet_size}"
@@ -50,8 +50,8 @@ module "loadbalance" {
 module "application" {
   source = "../../../modules/digital_ocean/application"
 
-  env     = "${local.env}"
-  region  = "${local.region}"
+  env    = "${local.env}"
+  region = "${local.region}"
 
   application_ssh_key              = "${digitalocean_ssh_key.ssh_key_bootstrap.id}"
   application_droplet_size         = "${local.application_droplet_size}"

@@ -1,6 +1,6 @@
 locals {
-  env                    = "prod-nyc3-blue"
-  region                 = "nyc3"
+  env    = "prod-nyc3-blue"
+  region = "nyc3"
 
   global_image = "ubuntu-16-04-x32"
 
@@ -11,5 +11,4 @@ locals {
 
   application_droplet_size  = "512mb"
   application_droplet_count = "2"
-
 }

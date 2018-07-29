@@ -1,0 +1,1 @@
+../../inventory_plugins/digital_ocean.py

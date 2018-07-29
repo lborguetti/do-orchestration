@@ -1,0 +1,14 @@
+[prod-nyc3-green-bastion]
+
+[bastion:children]
+prod-nyc3-green-bastion
+
+[prod-nyc3-green-loadbalance]
+
+[loadbalance:children]
+prod-nyc3-green-loadbalance
+
+[prod-nyc3-green-application]
+
+[application:children]
+prod-nyc3-green-application

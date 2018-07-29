@@ -1,0 +1,14 @@
+# ansible
+.local/*
+*.retry
+vault_password_file
+
+# bootstrap ssh pub key
+keys/bootstrap.pub
+
+# terraform
+*.tfstate.*.backup
+*.tfstate.backup
+.terraform/
+errored.tfstate
+terraform.tfstate

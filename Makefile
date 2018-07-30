@@ -115,9 +115,10 @@ terraform-apply: guard-env ## Apply Terraform providers
 terraform-destroy: guard-env ## Destroy Terraform providers
 	$(terraform-docker-run) \
 		terraform destroy \
-		-parallelism=100 \
-		$(terraform-args) \
-		.
+			-var "ssh_key_id=$(ssh_key_id)" \
+			-parallelism=100 \
+			$(terraform-args) \
+			.
 
 .PHONY: terraform-fmt
 terraform-fmt: ## Execute Terraform fmt

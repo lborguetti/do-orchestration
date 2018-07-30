@@ -33,14 +33,13 @@ resource "digitalocean_firewall" "bastion" {
       destination_addresses = ["0.0.0.0/0", "::/0"]
     },
     {
-      protocol              = "tcp"
-      port_range            = "22"
-      destination_addresses = ["${split(",",var.loadbalance_ipv4_address_private)}"]
-    },
-    {
-      protocol              = "tcp"
-      port_range            = "22"
-      destination_addresses = ["${split(",",var.application_ipv4_address_private)}"]
+      protocol   = "tcp"
+      port_range = "22"
+
+      destination_addresses = [
+        "${split(",",var.loadbalance_ipv4_address_private)}",
+        "${split(",",var.application_ipv4_address_private)}",
+      ]
     },
   ]
 }

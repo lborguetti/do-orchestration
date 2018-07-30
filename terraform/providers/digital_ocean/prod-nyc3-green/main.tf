@@ -16,10 +16,7 @@ terraform {
   }
 }
 
-resource "digitalocean_ssh_key" "ssh_key_bootstrap" {
-  name       = "bootstrap"
-  public_key = "${file("/data/keys/bootstrap.pub")}"
-}
+variable "ssh_key_id" {}
 
 module "bastion" {
   source = "../../../modules/digital_ocean/bastion"
@@ -27,7 +24,7 @@ module "bastion" {
   env    = "${local.env}"
   region = "${local.region}"
 
-  bastion_ssh_key                  = "${digitalocean_ssh_key.ssh_key_bootstrap.id}"
+  bastion_ssh_key                  = "${var.ssh_key_id}"
   bastion_droplet_size             = "${local.bastion_droplet_size}"
   bastion_droplet_image            = "${local.global_image}"
   loadbalance_ipv4_address_private = "${module.loadbalance.loadbalance_ipv4_address_private}"
@@ -40,7 +37,7 @@ module "loadbalance" {
   env    = "${local.env}"
   region = "${local.region}"
 
-  loadbalance_ssh_key          = "${digitalocean_ssh_key.ssh_key_bootstrap.id}"
+  loadbalance_ssh_key          = "${var.ssh_key_id}"
   loadbalance_droplet_size     = "${local.loadbalance_droplet_size}"
   loadbalance_droplet_count    = "${local.loadbalance_droplet_count}"
   loadbalance_droplet_image    = "${local.global_image}"
@@ -53,7 +50,7 @@ module "application" {
   env    = "${local.env}"
   region = "${local.region}"
 
-  application_ssh_key              = "${digitalocean_ssh_key.ssh_key_bootstrap.id}"
+  application_ssh_key              = "${var.ssh_key_id}"
   application_droplet_size         = "${local.application_droplet_size}"
   application_droplet_count        = "${local.application_droplet_count}"
   application_droplet_image        = "${local.global_image}"

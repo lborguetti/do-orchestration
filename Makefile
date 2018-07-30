@@ -105,6 +105,7 @@ terraform: guard-env guard-terraform-command ## Execute arbitrary Terraform comm
 terraform-apply: guard-env ## Apply Terraform providers
 	$(terraform-docker-run) \
 		terraform apply \
+			-var "ssh_key_id=$(ssh_key_id)" \
 			-auto-approve=false \
 			-parallelism=100 \
 			$(terraform-args) \
